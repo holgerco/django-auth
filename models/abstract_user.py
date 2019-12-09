@@ -7,9 +7,10 @@ from .date_mixin import DateMixin
 from django.core.mail import send_mail
 from django.utils import timezone
 from ..managers import UserManager
+from .profile_mixin import ProfileMixin
 
 
-class AbstractUser(AbstractBaseUser, PermissionMixin, DateMixin):
+class AbstractUser(AbstractBaseUser, PermissionMixin, DateMixin, ProfileMixin):
     username_validator = UnicodeUsernameValidator()
 
     first_name = models.CharField(
