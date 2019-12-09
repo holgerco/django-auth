@@ -3,6 +3,7 @@ from .permission_mixin import PermissionMixin
 from .abstract_user import AbstractUser
 from .user import User
 from .profile import Profile
+from .profile_mixin import ProfileMixin
 
 from django.utils import timezone
 
