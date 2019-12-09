@@ -7,11 +7,11 @@ A Custom User model for authentication
 * Django (1.11, >2.0, 2.1, 2.2, 3.0, 3.1)
 
 ## Installation
-Install using ``pip``::
+Install using ``pip``
     
     pip install django-custom-user-models
     
-add to ``INSTALLED_APPS`` setting::
+add to ``INSTALLED_APPS`` setting
 
     INSTALLED_APPS = {
         ...
@@ -19,7 +19,7 @@ add to ``INSTALLED_APPS`` setting::
         ...
     }
 
-set ``AUTH_USER_MODEL`` setting::
+set ``AUTH_USER_MODEL`` setting
     
     AUTH_USER_MODEL = 'CustomUser.User'
    
