@@ -2,6 +2,7 @@ from .date_mixin import DateMixin
 from .permission_mixin import PermissionMixin
 from .abstract_user import AbstractUser
 from .user import User
+from .profile import Profile
 
 from django.utils import timezone
 
