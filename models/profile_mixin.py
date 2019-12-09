@@ -1,10 +1,9 @@
-from profile import Profile
+from .profile import Profile
 import re
 
 
 class ProfileMixin(object):
 
-    @property
     def profile(self):
         if not hasattr(self, '_profile') or not self._profile:
             self._profile = None
