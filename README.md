@@ -9,7 +9,7 @@ A Custom User model for authentication
 ## Installation
 Install using ``pip``::
     
-    pip install django-custom-user-model
+    pip install django-custom-user-models
     
 add to ``INSTALLED_APPS`` setting::
 
