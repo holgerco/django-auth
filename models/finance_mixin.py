@@ -7,3 +7,6 @@ class FinanceMixin(models.Model):
         _('Credit of user'),
         default=0
     )
+
+    class Meta:
+        abstract = True
