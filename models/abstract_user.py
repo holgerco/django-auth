@@ -21,7 +21,7 @@ class AbstractUser(AbstractBaseUser, PermissionMixin, DateMixin, FinanceMixin):
         null=True,
     )
     last_name = models.CharField(
-        _('first name'),
+        _('last name'),
         max_length=200,
         blank=True,
         null=True,
