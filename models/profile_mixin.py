@@ -1,18 +1,8 @@
-from .profile import Profile
+
 import re
 
 
-class ProfileMixin(object):
-
-    def profile(self):
-        if not hasattr(self, '_profile') or not self._profile:
-            self._profile = None
-            for field in self._meta.get_fields():
-                field_name = field.name
-                value = getattr(self, field_name, None)
-                if value and isinstance(value, Profile):
-                    self._profile = value
-        return self._profile
+class ProfileMixin():
 
     def __getattr__(self, name):
         pattern = re.compile(r'^is_(.+)$')

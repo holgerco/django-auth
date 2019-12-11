@@ -7,10 +7,11 @@ from .date_mixin import DateMixin
 from django.core.mail import send_mail
 from django.utils import timezone
 from ..managers import UserManager
-from .profile_mixin import ProfileMixin
+from .finance_mixin import FinanceMixin
+from .profile import Profile
 
 
-class AbstractUser(AbstractBaseUser, PermissionMixin, DateMixin, ProfileMixin):
+class AbstractUser(AbstractBaseUser, PermissionMixin, DateMixin, FinanceMixin):
     username_validator = UnicodeUsernameValidator()
 
     first_name = models.CharField(
@@ -88,3 +89,13 @@ class AbstractUser(AbstractBaseUser, PermissionMixin, DateMixin, ProfileMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+    def profile(self):
+        if not hasattr(self, '_profile') or not self._profile:
+            self._profile = None
+            for field in self._meta.get_fields():
+                field_name = field.name
+                value = getattr(self, field_name, None)
+                if value and isinstance(value, Profile):
+                    self._profile = value
+        return self._profile
