@@ -51,7 +51,6 @@ class UserAdmin(BaseUserAdmin):
                 'fields': (
                     'date_register',
                     'last_login',
-                    'date_joined',
                 )
             }
         ),
@@ -63,7 +62,7 @@ class UserAdmin(BaseUserAdmin):
         }),
     )
 
-    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff')
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_register')
 
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups', 'is_register')
 
@@ -74,4 +73,4 @@ class UserAdmin(BaseUserAdmin):
     filter_horizontal = ('groups', 'permissions',)
 
 
-admin.site.register(User)
+admin.site.register(User, UserAdmin)
