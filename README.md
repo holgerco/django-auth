@@ -22,8 +22,14 @@ add to ``INSTALLED_APPS`` setting
 set ``AUTH_USER_MODEL`` setting
     
     AUTH_USER_MODEL = 'CustomUser.User'
-   
 
+### Status Handler
+add ``handler`` to ``yourproject/urls.py``
+```python
+from CustomAuth.urls import handler400, handler401, handler403, handler404, handler500
+```
+    
+    
 ## License
 Uses the MIT license.
 
