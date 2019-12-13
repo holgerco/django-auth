@@ -19,9 +19,13 @@ add to ``INSTALLED_APPS`` setting
         ...
     }
 
-set ``AUTH_USER_MODEL`` setting
+set ``AUTH_USER_MODEL`` setting before first migrate
     
     AUTH_USER_MODEL = 'CustomUser.User'
+    
+migrate apps
+
+    py manage.py migrate
 
 ### Status Handler
 add ``handler`` to ``yourproject/urls.py``
