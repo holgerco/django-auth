@@ -21,7 +21,7 @@ add to ``INSTALLED_APPS`` setting
 
 set ``AUTH_USER_MODEL`` setting before first migrate
     
-    AUTH_USER_MODEL = 'CustomUser.User'
+    AUTH_USER_MODEL = 'CustomAuth.User'
     
 migrate apps
 
