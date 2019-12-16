@@ -36,36 +36,33 @@ from CustomAuth.urls import handler400, handler401, handler403, handler404, hand
 ```
 
 ### Authentication template
-##### profile url
 Add to `settings.py`
+##### profile url
+
 ```python
-USER_PROFILE_URL = 'your user profile url' # default '/profile/'
+USER_PROFILE_URL = '<your user profile url>' # default '/profile/'
 ```
  
 ##### logout redirect url
-Add to `settings.py`
 ```python
-LOGOUT_REDIRECT = 'your logout redirect' # default '/'
+LOGOUT_REDIRECT = '<your logout redirect>' # default '/'
 ```
 ##### signup successfully redirect
-Add to `settings.py`
 ```python
-SIGNUP_SUCCESSFULLY_URL = 'your signup successfully redirect url' # default '/profile/'
+SIGNUP_SUCCESSFULLY_URL = '<your signup successfully redirect url>' # default '/profile/'
 ```
 
 ##### verification successfully redirect
-Add to `settings.py`
 ```python
-VERIFY_SUCCESSFULLY =  'your verify successfully redirect url' # default '/profile/' 
+VERIFY_SUCCESSFULLY =  '<your verify successfully redirect url>' # default '/profile/' 
 ```
 
 #### verification failed redirect
-Add to `settings.py`
 ```python
-VERIFY_FAILED = 'your verify failed redirect url' # default 'Verification link is invalid!'
+VERIFY_FAILED = '<your verify failed redirect url>' # default 'Verification link is invalid!'
 ```
-##### Gmail config
-For verify email you must config email smtp server 
+##### Email config
+For verify email you should config email smtp server, example(gmail): 
 ```python
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
