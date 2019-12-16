@@ -119,5 +119,5 @@ class AbstractUser(AbstractBaseUser, PermissionMixin, DateMixin, FinanceMixin):
         message = render_to_string('CustomAuth/pages/email_verification.html', context=context)
         try:
             self.email_user(mail_subject, message, from_email=settings.EMAIL_FROM)
-        except SMTPException:
+        except (SMTPException, Exception):
             print(message)
