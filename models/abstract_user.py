@@ -75,7 +75,7 @@ class AbstractUser(AbstractBaseUser, PermissionMixin, DateMixin, FinanceMixin):
 
     def register_user(self):
         self.data_register = timezone.now()
-        self.is_register = True
+        self.is_verify = True
         self.save(update_fields=['date_register', 'is_register'])
 
     def clean(self):

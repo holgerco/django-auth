@@ -44,7 +44,7 @@ class UserChangeForm(forms.ModelForm):
         model = User
         fields = ('email', 'password',
                   'first_name', 'last_name',
-                  'is_superuser', 'is_staff', 'is_register', 'is_active',
+                  'is_superuser', 'is_staff', 'is_verify', 'is_active',
                   'permissions', 'groups',
                   'date_register'
                   )

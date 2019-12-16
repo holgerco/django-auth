@@ -51,7 +51,7 @@ class PermissionMixin(models.Model):
         _('active status'),
         default=True
     )
-    is_register = models.BooleanField(
+    is_verify = models.BooleanField(
         _('register status'),
         default=False
     )
