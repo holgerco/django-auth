@@ -19,4 +19,4 @@ def verify_email(request, uidb64, token):
         login(request, user)
         return HttpResponseRedirect(getattr(settings, 'VERIFY_SUCCESSFULLY', '/profile/'))
     else:
-        return HttpResponse('Activation link is invalid!')
+        return HttpResponse(getattr(settings, 'Verify_Failed', 'Verification link is invalid!'))
