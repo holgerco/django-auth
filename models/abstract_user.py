@@ -9,6 +9,13 @@ from django.utils import timezone
 from ..managers import UserManager
 from .finance_mixin import FinanceMixin
 from .profile import Profile
+from django.contrib.sites.shortcuts import get_current_site
+from django.conf import settings
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from CustomAuth.tokens import account_verify_email_token
+from smtplib import SMTPException
 
 
 class AbstractUser(AbstractBaseUser, PermissionMixin, DateMixin, FinanceMixin):
@@ -99,3 +106,18 @@ class AbstractUser(AbstractBaseUser, PermissionMixin, DateMixin, FinanceMixin):
                 if value and isinstance(value, Profile):
                     self._profile = value
         return self._profile
+
+    def verification_email(self, request):
+        current_site = get_current_site(request)
+        mail_subject = getattr(settings, 'REGISTRATION_MAIL_SUBJECT', 'Activate your blog account.')
+        context = {
+            'user': self,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(self.pk)),
+            'token': account_verify_email_token.make_token(self)
+        }
+        message = render_to_string('CustomAuth/pages/email_verification.html', context=context)
+        try:
+            self.email_user(mail_subject, message, from_email=settings.EMAIL_FROM)
+        except SMTPException:
+            print(message)
