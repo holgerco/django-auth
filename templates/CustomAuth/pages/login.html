@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<h2>Login</h2>
+<form action="{% url 'login' %}" method="post">
+    {% if errors %}
+        <div>
+            <p><strong>کاربری با این اطلاعات پیدا نشد</strong></p>
+                لطفا ایمیل و رمز خود را درست وارد نمایید.
+        </div>
+    {% endif %}
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit" name="action">ورود
+        <i>send</i>
+    </button>
+</form>
+</body>
+</html>
