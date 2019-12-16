@@ -10,7 +10,6 @@ def signup(request: HttpRequest):
         form = UserCreationForm(data=request.POST)
         if form.is_valid() and form.clean_password2():
             user = form.save()
-            user.is_register = False
             user.save()
             login(request, user)
             user.verification_email(request)
