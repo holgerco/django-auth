@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+</head>
+<body>
+<h2>Sign up</h2>
+<form action="{% url 'signup' %}" method="post">
+    {% if errors %}
+        <div>
+            <p><strong>رمز مطابقت ندارد</strong></p>
+            لطفا دوباره رمزها را وارد کنید.
+        </div>
+    {% endif %}
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit" name="action">ورود
+        <i>send</i>
+    </button>
+
+</form>
+</body>
+</html>
