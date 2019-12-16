@@ -1,0 +1,5 @@
+{% autoescape off %}
+    Hi {{ user.username }},
+    Please click on the link to confirm your verification,
+    http://{{ domain }}{% url 'register' uidb64=uid token=token %}
+{% endautoescape %}
