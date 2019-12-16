@@ -4,6 +4,7 @@ from django.contrib.auth import login
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
+from django.conf import settings
 
 
 def verify_email(request, uidb64, token):
@@ -16,6 +17,6 @@ def verify_email(request, uidb64, token):
         user.is_register = True
         user.save()
         login(request, user)
-        return HttpResponseRedirect('/profile/')
+        return HttpResponseRedirect(getattr(settings, 'VERIFY_SUCCESSFULLY', '/profile/'))
     else:
         return HttpResponse('Activation link is invalid!')
