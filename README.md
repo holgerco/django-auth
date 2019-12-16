@@ -62,7 +62,7 @@ VERIFY_SUCCESSFULLY =  'your verify successfully redirect url' # default '/profi
 #### verification failed redirect
 Add to `settings.py`
 ```python
-Verify_Failed = 'your verify failed redirect url' # default 'Verification link is invalid!'
+VERIFY_FAILED = 'your verify failed redirect url' # default 'Verification link is invalid!'
 ```
 ##### Gmail config
 For verify email you must config email smtp server 
