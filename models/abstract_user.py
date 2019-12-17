@@ -14,7 +14,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
-from CustomAuth.tokens import account_verify_email_token
+from CustomAuth.tokens import account_verify_email_token, magic_token
 from smtplib import SMTPException
 
 
@@ -121,3 +121,11 @@ class AbstractUser(AbstractBaseUser, PermissionMixin, DateMixin, FinanceMixin):
             self.email_user(mail_subject, message, from_email=settings.EMAIL_FROM)
         except (SMTPException, Exception):
             print(message)
+
+    def get_magic_link(self, request):
+        current_site = get_current_site(request)
+        uidb64 = urlsafe_base64_encode((force_bytes(self.pk)))
+        token = magic_token.make_token(self)
+        magic_link = 'http://{}/{}/{}'.format(current_site.domain, uidb64, token)
+        print(magic_link)
+        return magic_link
