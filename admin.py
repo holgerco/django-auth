@@ -63,9 +63,9 @@ class UserAdmin(BaseUserAdmin):
         }),
     )
 
-    list_display = ('username', 'email', 'first_name', 'last_name', 'is_register')
+    list_display = ('email', 'username', 'first_name', 'last_name', 'is_verify')
 
-    list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups', 'is_register')
+    list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups', 'is_verify')
 
     search_fields = ('username', 'first_name', 'last_name', 'email', 'groups')
 

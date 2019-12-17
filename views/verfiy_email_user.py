@@ -14,7 +14,7 @@ def verify_email(request, uidb64, token):
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
     if user is not None and account_verify_email_token.check_token(user, token):
-        user.is_register = True
+        user.is_verify = True
         user.save()
         login(request, user)
         return HttpResponseRedirect(getattr(settings, 'VERIFY_SUCCESSFULLY', '/profile/'))
