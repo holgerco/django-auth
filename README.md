@@ -74,9 +74,31 @@ EMAIL_FROM = EMAIL_HOST_USER
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 ```
 
+### Magic Link
+Use magic link for auto authentication user.
+Add to `settings.py`
+ ```python
+AUTHENTICATION_BACKENDS = (
+    # ... 
+    'CustomAuth.backends.MagicLinkBackend', # magic backend
+    # ...
+)
+
+MIDDLEWARE = [
+    # ...
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # ...
+    'CustomAuth.middleware.magic.MagicMiddleware', # Magic middleware
+    # ...
+]
+```
+
+## Versioning
+This project follows [Semantic Versioning 2.0.0.](http://semver.org/spec/v2.0.0.html)
 
     
 ## License
-Uses the MIT license.
+This project follows the BSD license. See the [LICENSE](./LICENSE) for details.
 
 * MIT: http://opensource.org/licenses/MIT
