@@ -43,14 +43,14 @@ class UserAdmin(BaseUserAdmin):
                     'is_staff',
                     'is_superuser',
                     'groups',
-                    'permissions'
+                    'user_permissions'
                 ),
             }
         ),
         (
             _('Important dates'), {
                 'fields': (
-                    'date_register',
+                    'date_verify',
                     'last_login',
                 )
             }
@@ -71,7 +71,7 @@ class UserAdmin(BaseUserAdmin):
 
     ordering = ('username',)
 
-    filter_horizontal = ('groups', 'permissions',)
+    filter_horizontal = ('groups', 'user_permissions',)
 
 
 admin.site.register(User, UserAdmin)

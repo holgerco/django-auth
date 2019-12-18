@@ -78,7 +78,7 @@ class PermissionMixin(models.Model):
         related_query_name='user'
     )
 
-    permissions = models.ManyToManyField(
+    user_permissions = models.ManyToManyField(
         Permission,
         verbose_name=_('user permissions'),
         blank=True,

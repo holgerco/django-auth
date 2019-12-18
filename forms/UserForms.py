@@ -45,8 +45,8 @@ class UserChangeForm(forms.ModelForm):
         fields = ('email', 'password',
                   'first_name', 'last_name',
                   'is_superuser', 'is_staff', 'is_verify', 'is_active',
-                  'permissions', 'groups',
-                  'date_register'
+                  'user_permissions', 'groups',
+                  'date_verify'
                   )
 
     def clean_password(self):

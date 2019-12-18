@@ -3,8 +3,8 @@ from django.utils.translation import gettext_lazy as _
 
 
 class DateMixin(models.Model):
-    date_register = models.DateTimeField(
-        _('register date'),
+    date_verify = models.DateTimeField(
+        _('verify date'),
         blank=True,
         null=True
     )
