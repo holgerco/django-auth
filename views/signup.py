@@ -11,7 +11,7 @@ def signup(request: HttpRequest):
         if form.is_valid() and form.clean_password2():
             user = form.save()
             user.save()
-            login(request, user)
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             user.verification_email(request)
             return HttpResponseRedirect(getattr(settings, 'SIGNUP_SUCCESSFULLY_URL', '/profile/'))
         else:

@@ -13,7 +13,7 @@ def login(request: HttpRequest):
         form = UserLoginForm(data=request.POST)
         if form.is_valid():
             form.clean()
-            user_login(request, form.get_user())
+            user_login(request, form.get_user(), backend='django.contrib.auth.backends.ModelBackend')
             next_page = request.session.get('next', None)
             if next_page:
                 url = next_page

@@ -16,7 +16,7 @@ def verify_email(request, uidb64, token):
     if user is not None and account_verify_email_token.check_token(user, token):
         user.is_verify = True
         user.save()
-        login(request, user)
+        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
         return HttpResponseRedirect(getattr(settings, 'VERIFY_SUCCESSFULLY', '/profile/'))
     else:
         return HttpResponse(getattr(settings, 'VERIFY_FAILED', 'Verification link is invalid!'))
