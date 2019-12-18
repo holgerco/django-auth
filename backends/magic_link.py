@@ -3,6 +3,7 @@ from CustomAuth.models import User
 from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_text
 from CustomAuth.tokens import magic_token
+from django.conf import settings
 
 
 class MagicLinkBackend(BaseBackend):
