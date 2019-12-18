@@ -14,7 +14,11 @@ def login(request: HttpRequest):
         if form.is_valid():
             form.clean()
             user_login(request, form.get_user())
-            url = getattr(settings, 'USER_PROFILE_URL', '/profile/')
+            next_page = request.session.get('next', None)
+            if next_page:
+                url = next_page
+            else:
+                url = getattr(settings, 'USER_PROFILE_URL', '/profile/')
             return HttpResponseRedirect(url)
         else:
             context = {
@@ -25,4 +29,8 @@ def login(request: HttpRequest):
         context = {
             'form': UserLoginForm,
         }
+    if request.method == 'GET':
+        next_page = request.GET.get('next', None)
+        if next_page:
+            request.session['next'] = next_page
     return render(request, 'CustomAuth/pages/login.html', context=context)

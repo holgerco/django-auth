@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resend Verification Code</title>
+</head>
+<body>
+{% if user_already_verified %}
+    <p> You are already verified</p>
+{% else %}
+    <p>Verification code send to your email</p>
+{% endif %}
+</body>
+</html>
