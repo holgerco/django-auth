@@ -16,6 +16,8 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from CustomAuth.tokens import account_verify_email_token, magic_token
 from smtplib import SMTPException
+import jwt
+from datetime import datetime, timedelta
 
 
 class AbstractUser(AbstractBaseUser, PermissionMixin, DateMixin, FinanceMixin):
@@ -129,3 +131,24 @@ class AbstractUser(AbstractBaseUser, PermissionMixin, DateMixin, FinanceMixin):
         magic_link = 'http://{}/{}/{}'.format(current_site.domain, uidb64, token)
         print(magic_link)
         return magic_link
+
+    @property
+    def token(self):
+        return self.generate_jwt_token()
+        pass
+
+    def generate_jwt_token(self):
+        """
+        Generates a JSON Web Token that stores this user's ID and has an expiry
+        date set to 30 days into the future.
+        """
+        dt = timezone.datetime.now() + timezone.timedelta(days=30)
+
+        token = jwt.encode(
+            payload={
+                'id': self.pk,
+                'exp': dt
+            },
+            key=settings.SECRET_KEY, algorithm='HS256')
+
+        return token.decode('utf-8')
