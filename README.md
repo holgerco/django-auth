@@ -96,9 +96,12 @@ MIDDLEWARE = [
 
 ### JWT Authentication
 For get new jwt token with 2 month expire time.
-```
-curl -H "Authentication:<your token>" -X GET <your host>/jwt/token
-```
+    
+    curl -H "jwt-authentication:<your token>" -X GET <your host>/jwt/token
+
+For authenticate with jwt use your token.
+    
+    curl -H "jwt-authentication:<your token>" -X GET <your host>/<relative path>
 
 ## Versioning
 This project follows [Semantic Versioning 2.0.0.](http://semver.org/spec/v2.0.0.html)
