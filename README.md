@@ -42,6 +42,12 @@ Add to `settings.py`
 ```python
 USER_PROFILE_URL = '<your user profile url>' # default '/profile/'
 ```
+
+##### login redirect url
+```python
+LOGIN_REDIRECT_URL = '<your login redirect>' # default '/account/profile/'
+```
+
  
 ##### logout redirect url
 ```python
