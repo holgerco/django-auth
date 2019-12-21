@@ -10,7 +10,7 @@ class JwtMiddleware(MiddlewareMixin):
 
     def process_request(self, request: HttpRequest):
         if not request.user or request.user.is_anonymous:
-            jwt_token = request.headers.get('authorization', None)
+            jwt_token = request.headers.get('jwt-authentication', None)
             print(jwt_token)
             if jwt_token:
                 user = User.objects.get_by_token(jwt_token)
