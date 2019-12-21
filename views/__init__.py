@@ -4,3 +4,4 @@ from .logout import logout
 from .signup import signup
 from .verfiy_email_user import verify_email
 from .resend_verification_email_user import resend_verification_code
+from .jwt import revoke as jwt_revoke
