@@ -3,6 +3,7 @@ from django.conf.urls import url
 from CustomAuth.views import login, verify_email, signup, logout, resend_verification_code
 
 from .password import urlpatterns as password_patterns
+from .jwt import urlpatterns as jwt_patterns
 
 urlpatterns = [
     url('login/', login, name='login'),
@@ -12,4 +13,6 @@ urlpatterns = [
     url(r'^verify/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', verify_email,
         name='verify'),
 ]
+
 urlpatterns += password_patterns
+urlpatterns += jwt_patterns
