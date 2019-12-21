@@ -1,9 +1,9 @@
 from django.http import HttpRequest, JsonResponse
 from CustomAuth.models import User
-from CustomAuth.decorators import jwt_required
+from django.contrib.auth.decorators import login_required
 
 
-@jwt_required
+@login_required
 def new_jwt_token(request: HttpRequest):
     user: User = request.user
     token = user.token
