@@ -1,6 +1,6 @@
 from django.conf.urls import url
-from CustomAuth.views import jwt_revoke
+from CustomAuth.views import new_jwt_token
 
 urlpatterns = [
-    url('jwt/revoke', jwt_revoke, name='jwt revoke')
+    url('jwt/new', new_jwt_token, name='jwt revoke')
 ]

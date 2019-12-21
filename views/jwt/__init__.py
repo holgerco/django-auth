@@ -1,1 +1,1 @@
-from .revoke import revoke
+from .new_token import new_jwt_token
