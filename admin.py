@@ -39,7 +39,7 @@ class UserAdmin(BaseUserAdmin):
             _('Permissions'), {
                 'fields': (
                     'is_active',
-                    'is_register',
+                    'is_verify',
                     'is_staff',
                     'is_superuser',
                     'groups',
