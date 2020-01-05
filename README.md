@@ -109,6 +109,12 @@ For authenticate with jwt use your token.
     
     curl -H "jwt-authentication:<your token>" -X GET <your host>/<relative path>
 
+### Multi database handling
+For save user in multiple databases:
+```python
+AUTH_DATABASES = ['first database name', 'second database name', ... ]
+```
+
 ## Versioning
 This project follows [Semantic Versioning 2.0.0.](http://semver.org/spec/v2.0.0.html)
 

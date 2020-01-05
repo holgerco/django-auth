@@ -16,7 +16,12 @@ class UserManager(BaseUserManager):
         email = self.normalize_email(email=email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
-        user.save(using=self.db)
+        databases = getattr(settings, 'AUTH_DATABASES', [])
+        if databases:
+            for db in databases:
+                user.save(using=db)
+        else:
+            user.save(using=self.db)
 
         return user
 
