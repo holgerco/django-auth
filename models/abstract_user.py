@@ -17,7 +17,7 @@ from django.utils.encoding import force_bytes
 from CustomAuth.tokens import account_verify_email_token, magic_token
 from smtplib import SMTPException
 import jwt
-from datetime import datetime, timedelta
+from jdatetime import datetime as jalali
 
 
 class AbstractUser(AbstractBaseUser, PermissionMixin, DateMixin, FinanceMixin):
@@ -69,6 +69,10 @@ class AbstractUser(AbstractBaseUser, PermissionMixin, DateMixin, FinanceMixin):
     @property
     def full_name(self):
         return self.get_full_name()
+
+    @property
+    def jalali_last_login(self):
+        return jalali.fromgregorian(datetime=self.last_login).strftime("%d %m %Y")
 
     def __str__(self):
         if self.username is None:
