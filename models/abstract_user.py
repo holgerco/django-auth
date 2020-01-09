@@ -6,7 +6,7 @@ from .permission_mixin import PermissionMixin
 from .date_mixin import DateMixin
 from django.core.mail import send_mail
 from django.utils import timezone
-from ..managers import UserManager
+from CustomAuth.managers import UserManager, SuperuserManager, StaffManager
 from .finance_mixin import FinanceMixin
 from .profile import Profile
 from django.contrib.sites.shortcuts import get_current_site
@@ -60,6 +60,8 @@ class AbstractUser(AbstractBaseUser, PermissionMixin, DateMixin, FinanceMixin):
     )
 
     objects = UserManager()
+    superusers = SuperuserManager()
+    staff = StaffManager()
 
     class Meta:
         verbose_name = _('user')
