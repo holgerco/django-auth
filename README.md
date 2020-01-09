@@ -115,6 +115,10 @@ For save user in multiple databases:
 AUTH_DATABASES = ['first database name', 'second database name', ... ]
 ```
 
+### Table show
+Add 'django_tables2' to INSTALLED_APPS and make sure that "django.template.context_processors.request" 
+is added to the context_processors in your template setting OPTIONS
+
 ## Versioning
 This project follows [Semantic Versioning 2.0.0.](http://semver.org/spec/v2.0.0.html)
 

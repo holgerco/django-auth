@@ -5,6 +5,7 @@ from CustomAuth.views import login, verify_email, signup, logout, resend_verific
 from .password import urlpatterns as password_patterns
 from .jwt import urlpatterns as jwt_patterns
 from .social import urlpatterns as social_patterns
+from .tables import urlpatterns as table_patterns
 
 urlpatterns = [
     url('login/', login, name='login'),
@@ -18,3 +19,4 @@ urlpatterns = [
 urlpatterns += password_patterns
 urlpatterns += jwt_patterns
 urlpatterns += social_patterns
+urlpatterns += table_patterns
