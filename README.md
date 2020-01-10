@@ -63,7 +63,7 @@ SIGNUP_SUCCESSFULLY_URL = '<your signup successfully redirect url>' # default '/
 VERIFY_SUCCESSFULLY =  '<your verify successfully redirect url>' # default '/profile/' 
 ```
 
-#### verification failed redirect
+##### verification failed redirect
 ```python
 VERIFY_FAILED = '<your verify failed redirect url>' # default 'Verification link is invalid!'
 ```
@@ -116,7 +116,7 @@ AUTH_DATABASES = ['first database name', 'second database name', ... ]
 ```
 
 ### Table show
-Add 'django_tables2' to INSTALLED_APPS and make sure that "django.template.context_processors.request" 
+Add `django_tables2` to INSTALLED_APPS and make sure that `django.template.context_processors.reques` 
 is added to the context_processors in your template setting OPTIONS
 
 ## Versioning
