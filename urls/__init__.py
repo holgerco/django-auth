@@ -18,5 +18,4 @@ urlpatterns = [
 
 urlpatterns += password_patterns
 urlpatterns += jwt_patterns
-urlpatterns += social_patterns
 urlpatterns += table_patterns
