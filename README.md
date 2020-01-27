@@ -103,7 +103,11 @@ MIDDLEWARE = [
 ### JWT Authentication
 For get new jwt token with 2 month expire time.
     
-    curl -H "jwt-authentication:<your token>" -X GET <your host>/jwt/token
+    curl -H "jwt-authentication:<your token>" -X GET <your host>/jwt/new
+    
+Or for logged in user.
+    
+    curl -X GET <your host>/jwt/new
 
 For authenticate with jwt use your token.
     

@@ -44,6 +44,11 @@ class UserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
     def get_by_token(self, token: str, algorithm='HS256'):
+        """
+        :param token: Equivalent to a user's token information. Based on the token, the user is identified
+        :param algorithm: The algorithm used for encoding the token
+        :return: If the token is valid, returns a specific user in the other way return null
+        """
         encoded_token = token.encode('utf-8')
         try:
             decoded: dict = jwt.decode(encoded_token, settings.SECRET_KEY, algorithm)
@@ -59,6 +64,7 @@ class UserManager(BaseUserManager):
             if user_username:
                 user = self.get(username=user_username)
                 return user
+            # TODO Get user with phone_number in jwt after create UserPhone model
         except jwt.ExpiredSignatureError:
             return None  # Signature expired. Please log in again.
         except jwt.InvalidTokenError:
@@ -106,6 +112,11 @@ class SuperuserManager(BaseUserManager):
         return user
 
     def get_by_token(self, token: str, algorithm='HS256'):
+        """
+        :param token: Equivalent to a user's token information. Based on the token, the user is identified
+        :param algorithm: The algorithm used for encoding the token
+        :return: If the token is valid, returns a specific user in the other way return null
+        """
         encoded_token = token.encode('utf-8')
         try:
             decoded: dict = jwt.decode(encoded_token, settings.SECRET_KEY, algorithm)
@@ -165,6 +176,11 @@ class StaffManager(BaseUserManager):
         return user
 
     def get_by_token(self, token: str, algorithm='HS256'):
+        """
+        :param token: Equivalent to a user's token information. Based on the token, the user is identified
+        :param algorithm: The algorithm used for encoding the token
+        :return: If the token is valid, returns a specific user in the other way return null
+        """
         encoded_token = token.encode('utf-8')
         try:
             decoded: dict = jwt.decode(encoded_token, settings.SECRET_KEY, algorithm)
