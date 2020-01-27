@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpRequest
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from CustomAuth.models import User

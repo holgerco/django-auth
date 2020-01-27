@@ -124,7 +124,7 @@ class AbstractUser(AbstractBaseUser, PermissionMixin, DateMixin, FinanceMixin):
         context = {
             'user': self,
             'domain': current_site.domain,
-            'uid': urlsafe_base64_encode(force_bytes(self.pk)),
+            'verify_uid64': urlsafe_base64_encode(force_bytes(self.pk)),
             'token': account_verify_email_token.make_token(self)
         }
         message = render_to_string('CustomAuth/pages/email_verification.html', context=context)
@@ -133,18 +133,27 @@ class AbstractUser(AbstractBaseUser, PermissionMixin, DateMixin, FinanceMixin):
         except (SMTPException, Exception):
             print(message)
 
-    def get_magic_link(self, request):
-        current_site = get_current_site(request)
-        uidb64 = urlsafe_base64_encode((force_bytes(self.pk)))
+    @property
+    def get_magic_link(self):
+        """
+        Return a magic url that with that can login automatic
+        :return: Return a dictionary that contains uid64, token and magic_link
+        """
+        uid64 = urlsafe_base64_encode((force_bytes(self.pk)))
         token = magic_token.make_token(self)
-        magic_link = 'http://{}/{}/{}'.format(current_site.domain, uidb64, token)
-        print(magic_link)
-        return magic_link
+        magic_link = '{}/{}'.format(uid64, token)
+        return {
+            'uid64': uid64,
+            'token': token,
+            'magic_link': magic_link
+        }
 
     @property
     def token(self):
+        """
+        :return: Return jwt token
+        """
         return self.generate_jwt_token()
-        pass
 
     def generate_jwt_token(self):
         """

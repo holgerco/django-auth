@@ -3,8 +3,8 @@
 A Custom User model for authentication
 
 ## Requirement
-* Python (3.5, 3.6, 3.7, 3.8)
-* Django (1.11, >2.0, 2.1, 2.2, 3.0, 3.1)
+* Python (+3.5)
+* Django (+2.0)
 
 ## Installation
 Install using ``pip``
@@ -27,6 +27,7 @@ Migrate apps
 
     py manage.py migrate
     
+
 ## Usage
 
 ### Status Handler
@@ -67,7 +68,7 @@ VERIFY_SUCCESSFULLY =  '<your verify successfully redirect url>' # default '/pro
 ```python
 VERIFY_FAILED = '<your verify failed redirect url>' # default 'Verification link is invalid!'
 ```
-##### Email config
+##### Email verification config
 For verify email you should config email smtp server, example(gmail): 
 ```python
 EMAIL_HOST = 'smtp.gmail.com'
@@ -78,6 +79,12 @@ EMAIL_USE_TSL = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 EMAIL_FROM = EMAIL_HOST_USER
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+```
+
+##### sms verification config
+```python
+KAVENEGAR_API = '<your api>'
+RECEPTOR = '<your receptor>'
 ```
 
 ### Magic Link
@@ -99,13 +106,29 @@ MIDDLEWARE = [
     # ...
 ]
 ```
+Run django shell
+> in root directory (windows)
+```shell script 
+py manage.py shell
+```
+> linux
+```shell script
+$ python3 manage.py shell 
+```
+
+>in shell
+```python
+from CustomAuth.models import User
+user = User.objects.create(email='<valid email>', password='<your password>')
+user.get_magic_link
+```
 
 ### JWT Authentication
 For get new jwt token with 2 month expire time.
     
     curl -H "jwt-authentication:<your token>" -X GET <your host>/jwt/new
     
-Or for logged in user.
+> for logged in user.
     
     curl -X GET <your host>/jwt/new
 
@@ -122,6 +145,12 @@ AUTH_DATABASES = ['first database name', 'second database name', ... ]
 ### Table show
 Add `django_tables2` to INSTALLED_APPS and make sure that `django.template.context_processors.reques` 
 is added to the context_processors in your template setting OPTIONS
+```http request
+https://<your_domain>/user/list/ # redirect to all user
+https://<your_domain>/user/list/all # all user
+https://<your_domain>/user/list/superuser # superuser
+https://<your_domain>/user/list/staff # staff
+```
 
 ## Versioning
 This project follows [Semantic Versioning 2.0.0.](http://semver.org/spec/v2.0.0.html)

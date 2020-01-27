@@ -18,13 +18,13 @@ class MagicMiddleware(MiddlewareMixin):
         return response
 
     def process_view(self, request: HttpRequest, view_func, view_args: list, view_kwargs: dict):
-        uidb64 = view_kwargs.get('uidb64', None)
-        token = view_kwargs.get('token', None)
-        if uidb64 and token:
+        uid64 = view_kwargs.get('magic_uid64', None)  # get user id base on uid64
+        token = view_kwargs.get('token', None)  # get
+        if uid64 and token:
             backend = MagicLinkBackend()
-            user = backend.authenticate(request, uidb64, token)
+            user = backend.authenticate(request, uid64, token)
             if user:
-                login(request, user)
+                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                 profile_url = getattr(settings, 'USER_PROFILE_URL', '/profile/')
                 return HttpResponseRedirect(profile_url)
         return None
