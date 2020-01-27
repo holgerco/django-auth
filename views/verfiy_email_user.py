@@ -7,9 +7,9 @@ from django.utils.http import urlsafe_base64_decode
 from django.conf import settings
 
 
-def verify_email(request, uidb64, token):
+def verify_email(request, verify_uid64, token):
     try:
-        uid = force_text(urlsafe_base64_decode(uidb64))
+        uid = force_text(urlsafe_base64_decode(verify_uid64))
         user = User.objects.get(pk=uid)
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
