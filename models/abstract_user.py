@@ -118,7 +118,7 @@ class AbstractUser(AbstractBaseUser, PermissionMixin, DateMixin, FinanceMixin):
                     self._profile = value
         return self._profile
 
-    def verification_email(self, request):
+    def send_verification_code(self, request):
         current_site = get_current_site(request)
         mail_subject = getattr(settings, 'REGISTRATION_MAIL_SUBJECT', 'Activate your blog account.')
         context = {

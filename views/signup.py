@@ -12,7 +12,7 @@ def signup(request: HttpRequest):
             user = form.save()
             user.save()
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-            user.verification_email(request)
+            user.send_verification_code(request)
             return HttpResponseRedirect(getattr(settings, 'SIGNUP_SUCCESSFULLY_URL', '/profile/'))
         else:
             context = {

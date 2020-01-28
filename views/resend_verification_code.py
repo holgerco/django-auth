@@ -9,7 +9,7 @@ def resend_verification_code(request: HttpRequest):
     user: User = request.user
     context = {}
     if not user.is_verify:
-        user.verification_email(request)
+        user.send_verification_code(request)
     else:
         context = {
             'user_already_verified': True

@@ -119,7 +119,7 @@ $ python3 manage.py shell
 >in shell
 ```python
 from CustomAuth.models import User
-user = User.objects.create(email='<valid email>', password='<your password>')
+user = User.objects.create(cellphone='<valid email>', password='<your password>')
 user.get_magic_link
 ```
 

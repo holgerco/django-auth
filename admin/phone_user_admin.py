@@ -1,15 +1,17 @@
-from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
-from .forms.UserForms import UserChangeForm, UserCreationForm
-from .models import User
-from django.contrib.auth.models import Group, Permission
+from CustomAuth.forms import PhoneUserCreationForm, PhoneUserChangeForm
+from phonenumber_field import widgets, modelfields
 
 
-class UserAdmin(BaseUserAdmin):
-    form = UserChangeForm
-    add_form = UserCreationForm
-
+class PhoneUserAdmin(BaseUserAdmin):
+    form = PhoneUserChangeForm
+    add_form = PhoneUserCreationForm
+    formfield_overrides = {
+        modelfields.PhoneNumberField: {
+            'widget': widgets.PhoneNumberPrefixWidget
+        }
+    }
     fieldsets = (
         (
             None, {
@@ -24,6 +26,7 @@ class UserAdmin(BaseUserAdmin):
                 'fields': (
                     'first_name',
                     'last_name',
+                    'cellphone',
                     'email'
                 )
             }
@@ -59,20 +62,16 @@ class UserAdmin(BaseUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2'),
+            'fields': ('cellphone', 'password1', 'password2'),
         }),
     )
 
-    list_display = ('email', 'username', 'first_name', 'last_name', 'is_verify')
+    list_display = ('cellphone', 'first_name', 'last_name', 'email', 'is_verify')
 
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups', 'is_verify')
 
-    search_fields = ('username', 'first_name', 'last_name', 'email', 'groups')
+    search_fields = ('username', 'first_name', 'last_name', 'email', 'groups', 'cellphone')
 
     ordering = ('username',)
 
     filter_horizontal = ('groups', 'user_permissions',)
-
-
-admin.site.register(User, UserAdmin)
-admin.site.register(Permission)
