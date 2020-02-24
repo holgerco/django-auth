@@ -18,6 +18,7 @@ from CustomAuth.tokens import account_verify_email_token, magic_token
 from smtplib import SMTPException
 import jwt
 from jdatetime import datetime as jalali
+from django_cryptography.core import signing
 
 
 class AbstractUser(AbstractBaseUser, PermissionMixin, DateMixin, FinanceMixin):
@@ -170,3 +171,27 @@ class AbstractUser(AbstractBaseUser, PermissionMixin, DateMixin, FinanceMixin):
             key=settings.SECRET_KEY, algorithm='HS256')
 
         return token.decode('utf-8')
+
+    def digital_sign(self, days: int = None):
+        if days:
+            dt = timezone.datetime.now() + timezone.timedelta(days=days)
+            timed_sign = jwt.encode(
+                payload={
+                    'sign': signing.dumps(self.id),
+                    'exp': dt
+                },
+                key=settings.SECRET_KEY,
+                algorithm='HS256'
+            )
+
+            return timed_sign.decode('utf-8')
+        else:
+            sign = jwt.encode(
+                payload={
+                    'sign': signing.dumps(self.id),
+                },
+                key=settings.SECRET_KEY,
+                algorithm='HS256'
+            )
+
+            return sign.decode('utf-8')

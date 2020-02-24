@@ -3,6 +3,7 @@ from django.utils import timezone
 from datetime import datetime
 import jwt
 from django.conf import settings
+from django_cryptography.core import signing
 
 
 class UserManager(BaseUserManager):
@@ -65,6 +66,22 @@ class UserManager(BaseUserManager):
                 user = self.get(username=user_username)
                 return user
             # TODO Get user with phone_number in jwt after create UserPhone model
+        except jwt.ExpiredSignatureError:
+            return None  # Signature expired. Please log in again.
+        except jwt.InvalidTokenError:
+            return None  # Invalid token. Please log in again.
+        except self.model.DoesNotExist:
+            return None  # User does not exist
+
+    def get_by_sign(self, token: str):
+        encoded_sign = token.encode('utf-8')
+        try:
+            decoded: dict = jwt.decode(encoded_sign, settings.SECRET_KEY, 'HS256')
+            sign = decoded.get('sign', None)
+            user_id = signing.loads(sign)
+            if user_id:
+                user = self.get(pk=user_id)
+                return user
         except jwt.ExpiredSignatureError:
             return None  # Signature expired. Please log in again.
         except jwt.InvalidTokenError:
@@ -139,6 +156,22 @@ class SuperuserManager(BaseUserManager):
         except self.model.DoesNotExist:
             return None  # User does not exist
 
+    def get_by_sign(self, token: str):
+        encoded_sign = token.encode('utf-8')
+        try:
+            decoded: dict = jwt.decode(encoded_sign, settings.SECRET_KEY, 'HS256')
+            sign = decoded.get('sign', None)
+            user_id = signing.loads(sign)
+            if user_id:
+                user = self.get(pk=user_id, is_superuser=True)
+                return user
+        except jwt.ExpiredSignatureError:
+            return None  # Signature expired. Please log in again.
+        except jwt.InvalidTokenError:
+            return None  # Invalid token. Please log in again.
+        except self.model.DoesNotExist:
+            return None  # User does not exist
+
 
 class StaffManager(BaseUserManager):
     def get_queryset(self):
@@ -195,6 +228,22 @@ class StaffManager(BaseUserManager):
             user_username = decoded.get('username', None)
             if user_username:
                 user = self.get(username=user_username)
+                return user
+        except jwt.ExpiredSignatureError:
+            return None  # Signature expired. Please log in again.
+        except jwt.InvalidTokenError:
+            return None  # Invalid token. Please log in again.
+        except self.model.DoesNotExist:
+            return None  # User does not exist
+
+    def get_by_sign(self, token: str):
+        encoded_sign = token.encode('utf-8')
+        try:
+            decoded: dict = jwt.decode(encoded_sign, settings.SECRET_KEY, 'HS256')
+            sign = decoded.get('sign', None)
+            user_id = signing.loads(sign)
+            if user_id:
+                user = self.get(pk=user_id, is_staff=True)
                 return user
         except jwt.ExpiredSignatureError:
             return None  # Signature expired. Please log in again.
