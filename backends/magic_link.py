@@ -1,4 +1,4 @@
-from CustomAuth.models import User
+from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import BaseBackend
 from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_text
@@ -10,8 +10,8 @@ class MagicLinkBackend(BaseBackend):
         try:
             # get user id base on uid64
             uid = force_text(urlsafe_base64_decode(uid64))
-            user = User.objects.get(pk=uid)
-        except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = get_user_model().objects.get(pk=uid)
+        except(TypeError, ValueError, OverflowError, get_user_model().DoesNotExist):
             user = None
         return user
 

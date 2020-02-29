@@ -1,6 +1,7 @@
 from .mixin import MiddlewareMixin
 from django.http import HttpRequest, HttpResponse
 from CustomAuth.models import User
+from django.contrib.auth import get_user_model
 
 
 class JwtMiddleware(MiddlewareMixin):
@@ -18,7 +19,7 @@ class JwtMiddleware(MiddlewareMixin):
         if not request.user or request.user.is_anonymous:
             jwt_token = request.headers.get('jwt-authentication', None)
             if jwt_token:
-                user = User.objects.get_by_token(jwt_token)
+                user = get_user_model().objects.get_by_token(jwt_token)
                 if user:
                     request.user = user
 
