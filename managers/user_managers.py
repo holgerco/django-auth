@@ -74,6 +74,8 @@ class UserManager(BaseUserManager):
             return None  # User does not exist
 
     def get_by_sign(self, token: str):
+        if token is None:
+            return None
         encoded_sign = token.encode('utf-8')
         try:
             decoded: dict = jwt.decode(encoded_sign, settings.SECRET_KEY, 'HS256')
@@ -157,6 +159,8 @@ class SuperuserManager(BaseUserManager):
             return None  # User does not exist
 
     def get_by_sign(self, token: str):
+        if token is None:
+            return None
         encoded_sign = token.encode('utf-8')
         try:
             decoded: dict = jwt.decode(encoded_sign, settings.SECRET_KEY, 'HS256')
@@ -237,6 +241,8 @@ class StaffManager(BaseUserManager):
             return None  # User does not exist
 
     def get_by_sign(self, token: str):
+        if token is None:
+            return None
         encoded_sign = token.encode('utf-8')
         try:
             decoded: dict = jwt.decode(encoded_sign, settings.SECRET_KEY, 'HS256')
