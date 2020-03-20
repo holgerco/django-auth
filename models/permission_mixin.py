@@ -109,35 +109,29 @@ class PermissionMixin(models.Model):
     def get_all_permissions(self, obj=None):
         return _user_get_permissions(self, obj, 'all')
 
-    def has_perm(self, perm, obj=None):
-        """
-        Return True if the user has the specified permission. Query all
-        available auth backends, but return immediately if any backend returns
-        True. Thus, a user who has permission from a single auth backend is
-        assumed to have permission in general. If an object is provided, check
-        permissions for that object.
-        """
-        # Active superusers have all permissions.
-        if self.is_active and self.is_superuser:
+    def has_perm(self, perm: Permission, obj=None) -> bool:
+        if self.is_active and self.is_verify and self.is_superuser:
             return True
 
-        # Otherwise we need to check the backends.
-        return _user_has_perm(self, perm, obj)
+        # otherwise we must check the permission
+        perm_name = "{}.{}".format(perm.content_type.app_label, perm.codename)
+        user_permission: list = list(self.get_user_permissions(obj))
+        gp_permission: list = list(self.get_group_permissions(obj))
 
-    def has_perms(self, perm_list, obj=None):
-        """
-        Return True if the user has each of the specified permissions. If
-        object is passed, check if the user has all required perms for it.
-        """
-        return all(self.has_perm(perm, obj) for perm in perm_list)
+        for permission in user_permission + gp_permission:
+            if perm_name == permission:
+                return True
 
-    def has_module_perms(self, app_label):
-        """
-        Return True if the user has any permissions in the given app label.
-        Use similar logic as has_perm(), above.
-        """
-        # Active superusers have all permissions.
-        if self.is_active and self.is_superuser:
+        return False
+
+    def has_module_perms(self, app_label) -> bool:
+        if self.is_active and self.is_verify and self.is_superuser:
             return True
 
-        return _user_has_module_perms(self, app_label)
+        # otherwise we must check the permission
+        user_permission: list = list(self.get_user_permissions())
+        gp_permission: list = list(self.get_group_permissions())
+        for permission in user_permission + gp_permission:
+            if app_label == permission.split('.')[0]:
+                return True
+        return False
